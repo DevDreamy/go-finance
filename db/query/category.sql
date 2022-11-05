@@ -17,5 +17,5 @@ SELECT * FROM categories WHERE user_id = $1 AND type = $2 AND title LIKE $3 AND 
 -- name: UpdateCategory :one
 UPDATE categories SET title = $2, description = $3 WHERE id = $1 RETURNING *;
 
--- name: DeleteCategory :one
+-- name: DeleteCategory :exec
 DELETE FROM categories WHERE id = $1 RETURNING *;
