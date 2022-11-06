@@ -10,4 +10,7 @@ migratedrop:
 test:
 	go test -v -cover ./...
 
-.PHONY: createdb migrateup migratedrop test
+server:
+	go run main.go
+
+.PHONY: createdb migrateup migratedrop test server
