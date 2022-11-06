@@ -55,6 +55,7 @@ func TestDeleteCategory(t *testing.T) {
 
 func TestUpdateCategory(t *testing.T) {
 	category1 := createRandomCategory(t)
+
 	arg := UpdateCategoryParams{
 		ID: category1.ID,
 		Title: util.RandomString(12),
