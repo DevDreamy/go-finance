@@ -1,10 +1,13 @@
-createDb: 
+createdb:
 	createdb --username-postgres --owner=postgres go_finance
 
-migrateUp: 
+migrateup:
 	migrate -path db/migration -database "postgresql://postgres:postgres@localhost:5432/go_finance?sslmode=disable" -verbose up
 
-migrateDrop: 
+migratedrop:
 	migrate -path db/migration -database "postgresql://postgres:postgres@localhost:5432/go_finance?sslmode=disable" -verbose drop
 
-.PHONY: createDb migrateUp migrateDrop
+test:
+	go test -v -cover ./...
+
+.PHONY: createdb migrateup migratedrop test
