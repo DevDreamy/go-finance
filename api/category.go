@@ -18,7 +18,6 @@ type createCategoryRequest struct {
 func (server *Server) createCategory(ctx *gin.Context) {
 	var req createCategoryRequest
 	err := ctx.ShouldBindJSON(&req)
-
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
