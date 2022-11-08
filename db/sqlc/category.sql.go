@@ -47,7 +47,8 @@ func (q *Queries) CreateCategory(ctx context.Context, arg CreateCategoryParams) 
 }
 
 const deleteCategory = `-- name: DeleteCategory :exec
-DELETE FROM categories WHERE id = $1 RETURNING id, user_id, title, type, description, created_at
+DELETE FROM categories
+WHERE id = $1 RETURNING id, user_id, title, type, description, created_at
 `
 
 func (q *Queries) DeleteCategory(ctx context.Context, id int32) error {
@@ -102,7 +103,8 @@ func (q *Queries) GetCategories(ctx context.Context, arg GetCategoriesParams) ([
 }
 
 const getCategory = `-- name: GetCategory :one
-SELECT id, user_id, title, type, description, created_at FROM categories WHERE id = $1 LIMIT 1
+SELECT id, user_id, title, type, description, created_at FROM categories
+WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetCategory(ctx context.Context, id int32) (Category, error) {
@@ -120,7 +122,10 @@ func (q *Queries) GetCategory(ctx context.Context, id int32) (Category, error) {
 }
 
 const updateCategory = `-- name: UpdateCategory :one
-UPDATE categories SET title = $2, description = $3 WHERE id = $1 RETURNING id, user_id, title, type, description, created_at
+UPDATE categories
+SET title = $2, description = $3
+WHERE id = $1
+RETURNING id, user_id, title, type, description, created_at
 `
 
 type UpdateCategoryParams struct {
