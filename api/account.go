@@ -24,6 +24,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	var categoryId = req.CategoryID
@@ -32,6 +33,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 	category, err := server.store.GetCategory(ctx, categoryId)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	if category.Type != accountType {
@@ -52,6 +54,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 	account, err := server.store.CreateAccount(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 
 	ctx.JSON(http.StatusOK, account)
@@ -66,6 +69,7 @@ func (server *Server) getAccount(ctx *gin.Context) {
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	account, err := server.store.GetAccount(ctx, req.ID)
@@ -91,6 +95,7 @@ func (server *Server) getAccountsGraph(ctx *gin.Context) {
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	arg := db.GetAccountsGraphParams{
@@ -117,6 +122,7 @@ func (server *Server) getAccountsReports(ctx *gin.Context) {
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	arg := db.GetAccountsReportsParams{
@@ -142,6 +148,7 @@ func (server *Server) deleteAccount(ctx *gin.Context) {
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	err = server.store.DeleteAccount(ctx, req.ID)
@@ -166,6 +173,7 @@ func (server *Server) updateAccount(ctx *gin.Context) {
 
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	arg := db.UpdateAccountParams{
@@ -178,6 +186,7 @@ func (server *Server) updateAccount(ctx *gin.Context) {
 	account, err := server.store.UpdateAccount(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
 	}
 
 	ctx.JSON(http.StatusOK, account)
@@ -197,6 +206,7 @@ func (server *Server) getAccounts(ctx *gin.Context) {
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return
 	}
 
 	arg := db.GetAccountsParams{
