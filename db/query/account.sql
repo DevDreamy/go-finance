@@ -27,9 +27,11 @@ SELECT
   c.title as category_title
 FROM accounts a
 LEFT JOIN categories c ON c.id = a.category_id
-WHERE a.user_id = $1 AND a.type = $2
-AND a.category_id = $3 AND a.title LIKE $4
-AND a.description LIKE $5 AND a.date = $6;
+WHERE a.user_id = @user_id AND a.type = @type
+AND LOWER(a.title) LIKE CONCAT('%', LOWER(@title::text), '%') 
+AND LOWER(a.description) LIKE CONCAT('%', LOWER(@description::text), '%')
+AND a.category_id = COALESCE(sqlc.narg('category_id'), a.category_id)
+AND a.date = COALESCE(sqlc.narg('date'), a.date);
 
 -- name: GetAccountsReports :one
 SELECT SUM(value) AS sum_value FROM accounts
