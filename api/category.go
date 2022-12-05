@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	db "github.com/DevDreamy/go-finance/db/sqlc"
+	"github.com/DevDreamy/go-finance/util"
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,6 +17,10 @@ type createCategoryRequest struct {
 }
 
 func (server *Server) createCategory(ctx *gin.Context) {
+	errOnValidateToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValidateToken != nil {
+		return
+	}
 	var req createCategoryRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
@@ -44,6 +49,10 @@ type getCategoryRequest struct {
 }
 
 func (server *Server) getCategory(ctx *gin.Context) {
+	errOnValidateToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValidateToken != nil {
+		return
+	}
 	var req getCategoryRequest
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
@@ -69,6 +78,10 @@ type deleteCategoryRequest struct {
 }
 
 func (server *Server) deleteCategory(ctx *gin.Context) {
+	errOnValidateToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValidateToken != nil {
+		return
+	}
 	var req deleteCategoryRequest
 	err := ctx.ShouldBindUri(&req)
 	if err != nil {
@@ -93,6 +106,10 @@ type updateCategoryRequest struct {
 }
 
 func (server *Server) updateCategory(ctx *gin.Context) {
+	errOnValidateToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValidateToken != nil {
+		return
+	}
 	var req updateCategoryRequest
 	err := ctx.ShouldBindJSON(&req)
 
@@ -124,6 +141,10 @@ type getCategoriesRequest struct {
 }
 
 func (server *Server) getCategories(ctx *gin.Context) {
+	errOnValidateToken := util.GetTokenInHeaderAndVerify(ctx)
+	if errOnValidateToken != nil {
+		return
+	}
 	var req getCategoriesRequest
 	err := ctx.ShouldBindJSON(&req)
 	if err != nil {
