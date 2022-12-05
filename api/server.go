@@ -32,6 +32,8 @@ func NewServer(store *db.SQLStore) *Server {
 	router.PUT("/account/:id", server.updateAccount)
 	router.GET("/account", server.getAccounts)
 
+	router.POST("/login", server.login)
+
 	server.router = router
 	return server
 }
